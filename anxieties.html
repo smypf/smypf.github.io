@@ -1,0 +1,112 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>smypf.com</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <style>
+        html {
+            color: #444444;
+            background: #fffff8;
+            margin: 10px 20px;
+            font-size: 14px;
+        }
+
+        header {
+            display: flex;
+        }
+
+        header h1 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        header h1 a {
+             text-decoration: none;
+             color: #444;
+        }
+
+        header .time {
+             position: relative;
+             top: -5px;
+        }
+
+        header hr {
+            flex-grow: 1;
+            height: 0px;
+            position: relative;
+            top: 9px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        ol li {
+            margin-bottom: 5px;
+        }
+
+        </style>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const date = new Date();
+            let hours = date.getHours().toString();
+            let minutes = date.getMinutes().toString();
+            let seconds = date.getSeconds().toString();
+
+            if(hours.length === 1) hours = "0" + hours;
+            if(minutes.length === 1) minutes = "0" + minutes;
+            if(seconds.length === 1) seconds = "0" + seconds;
+
+
+            const time = `${hours}:${minutes}:${seconds}`
+            document.querySelector(".time").innerText = time;
+        });
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="/anxieties.html" title="smypf.com">~/anxieties.html</a></h1>
+            <hr />
+            <p class="time"></p>
+        </header>
+
+        <p>I had an idea for something that I wanted to put together. Nothing special or complex and I it laid out in
+        my head.</p>
+
+        <p>I'd been mucking around with how data storage would be done and after a little bit I had it in a place that I
+        was happy.</p>
+
+        <p>But then I needed to put a frontend together and that's where the wheels came off.</p>
+
+        <p>First I thought I'd do it with as little Javascript as possible. Then I thought that would be a pain and
+        decided to start learning Svelte as an alternative frontend library. I started looking into how to do testing
+        and found that was a bit all over the place and I'd be missing out on improving my knowledge there.</p>
+
+        <p>Then that seemed too hard and instead I thought I'd start with a fresh installation of React as it's a
+        library I'm more familiar with.</p>
+
+        <p>By that time I was overwhelmed and anxious and had nothing to show for the hour or so of umm'ing and ahh'ing
+        I'd gone through. I'd wasted the short amount of time I had to do something worrying about things that in the
+        long run didn't really matter</p>
+
+        <p>This upset me greatly. I've decided that to get over it I'm committing to producing something new for the
+        next 30 days.</p>
+
+        <p>The rules:</p>
+
+        <ol>
+            <li>Each day something new. It can be completely from scratch or an enhancement to something existing.</li>
+            <li>Put it online. It if's not something that someone else can witness it doesn't count.</li>
+            <li>It doesn't matter what it is. An article, a toy application, just messing around with the design of this
+                site or anything else I feel like.</li>
+            <li>No meta-bullshit. Changes to the formatting, messing around with configuration or anything else that an
+                end user would care about doesn't count.</li>
+            <li>It doesn't have to be good. The exercise of putting something together is the goal.</li>
+            <li>Incomplete work is better than no work at all. As long as it's online it's good enough</li>
+            <li>Everything that is done gets listed somewhere on this site. Right now there's space on the
+                <a href="/">home page</a> so that's where it lives right now.</li>
+            <li>Focus on getting one part right. Improve the next part after that.</li>
+        </ol>
+    </body>
+</html>
