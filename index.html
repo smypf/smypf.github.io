@@ -11,18 +11,67 @@
             margin: 10px 20px;
             font-size: 14px;
         }
+
+        header {
+            display: flex;
+        }
+
+        header h1 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        header h1 a {
+             text-decoration: none;
+             color: #444;
+        }
+
+        header .time {
+             position: relative;
+             top: -5px;
+        }
+
+        header hr {
+            flex-grow: 1;
+            height: 0px;
+            position: relative;
+            top: 9px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
         </style>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const date = new Date();
+            let hours = date.getHours().toString();
+            let minutes = date.getMinutes().toString();
+            let seconds = date.getSeconds().toString();
+
+            if(hours.length === 1) hours = "0" + hours;
+            if(minutes.length === 1) minutes = "0" + minutes;
+            if(seconds.length === 1) seconds = "0" + seconds;
+
+
+            const time = `${hours}:${minutes}:${seconds}`
+            document.querySelector(".time").innerText = time;
+        });
+        </script>
     </head>
 
     <body>
-        <h1>smypf.com</h1>
+        <header>
+            <h1><a href="/" title="smypf.com">~</a></h1>
+            <hr />
+            <p class="time"></p>
+        </header>
         <p>After squatting on this domain for a decade I'm finally using it.</p>
         <p>I doubt it will be anything special or worthwhile but it's something</p>
 
         <p>What I've done (so far):</p>
         <ul>
+            <li>Updated the header to my liking</li>
             <li><a href="/">Created this website and put it online</a></li>
-
         </ul>
     </body>
 </html>
