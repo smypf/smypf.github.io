@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>smypf.com</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <style>
+        html {
+            color: #444444;
+            background: #fffff8;
+            margin: 10px 20px;
+            font-size: 14px;
+        }
+
+        header {
+            display: flex;
+        }
+
+        header h1 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        header h1 a {
+             text-decoration: none;
+             color: #444;
+        }
+
+        header .time {
+             position: relative;
+             top: -5px;
+        }
+
+        header hr {
+            flex-grow: 1;
+            height: 0px;
+            position: relative;
+            top: 9px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        ul {
+           padding-left: 15px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        section {
+            line-height: 1.5;
+            width: 60vw;
+            margin: 0 auto;
+        }
+
+        h3 {
+           margin-top: 2em;
+           margin-bottom: 5px;
+        }
+
+        h4 {
+            margin: 5px 0;
+        }
+
+        p.date {
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+        </style>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const date = new Date();
+            let hours = date.getHours().toString();
+            let minutes = date.getMinutes().toString();
+            let seconds = date.getSeconds().toString();
+
+            if(hours.length === 1) hours = "0" + hours;
+            if(minutes.length === 1) minutes = "0" + minutes;
+            if(seconds.length === 1) seconds = "0" + seconds;
+
+
+            const time = `${hours}:${minutes}:${seconds}`
+            document.querySelector(".time").innerText = time;
+        });
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="/resume.html" title="smypf.com/resume.html">~/resume.html</a></h1>
+            <hr />
+            <p class="time"></p>
+        </header>
+
+        <section>
+            <p><a href="mailto:work@smypf.com">work@smypf.com</a></p>
+            <p>Experienced developer of thirteen years looking to help make a better product with a diverse team proficient in their craft. I take pride in being friendly, approachable and honest. I enjoy sharing my knowledge but I’m not afraid of being told I’m wrong and using that as an opportunity to deepen my understanding and improve my work. As I'm living outside of the Australian major metropolitans I am mainly interested in remote work.</p>
+            <h2>EXPERIENCE</h2>
+            <h3>Lead Software Engineer</h3>
+            <h4>Deltatre (formerly Massive Interactive), Sydney</h4>
+            <p class="date">May 2019 - December 2022</p>
+
+            <p>Deltatre partners with broadcasters around the world to quickly get new over-the-top streaming services in front of their customers.</p>
+
+            <p>As Lead Software Engineer I was expected to fulfill a wide range of responsibilities. I worked with clients, business analysts and product managers to determine and clarify requirements with realistic expectations. I made sure that the developers I was leading had the specifications and tasks they need to work on a given feature or issue and that the workload that had been assigned to them was both acceptable and achievable. If something happens which blocks a developer from being able to complete their work I helped them directly or reach out to those in the know to resolve the problem. When I needed to get my hands dirty I was able to implement new features and maintain the codebases in a timely manner without introducing new issues. When projects are ready to hand over to clients I was responsible for creating training resources and instructing their team members for a successful handover resulting in smooth transitions of responsibility.</p>
+
+            <p>Typescript, React, Redux, HTML and SCSS were the tools used to produce frontends for browsers, Smart TVs and consoles which allow users to discover and consume live and on demand streamed video content. I wrote tests for the features I developed to ensure reliability and ensure that changes which would have had a negative impact on would not be released.</p>
+
+            <p>Outside of my responsibilities within a project and its codebase I mentored the developers I led, helping them to gain understanding of the work they do, the codebases they contribute to and the known and unknown objectives they sought to fulfill. I participated in the Social Committee helping to plan and organise company social events helping to raise morale and improve relationships between employees. I also regularly presented the “Office Gossip” segment of the monthly Town Hall giving a lighthearted update to employee ongoings in and out of the office.</p>
+
+            <ul>
+                <li>Implementation of design and functionality of new features and product enhancements.</li>
+                <li>Determining causes, impact and fixes for bugs.</li>
+                <li>Providing reports to non-technical personnel such as management and clients regarding changes and their impact on the project and its users.</li>
+                <li>Direct communication with clients, product managers and business analysts to determine requirements, provide technical expertise and guidance for the decision making process.</li>
+                <li>Ensuring that developers have everything required to allow for uninterrupted work.</li>
+                <li>Mentoring staff members to ensure that they’re happy, productive and growing in their positions.</li>
+                <li>Assisting in the evaluation of potential new team members.</li>
+                <li>Training external developers in the use and effective development practices of their new codebase.</li>
+            </ul>
+
+
+            <p>Required Skills: TypeScript & JavaScript (React & Node), HTML, CSS / SCSS, Agile Practices, Git</p>
+
+            <p>Note: Massive Interactive was acquired by Deltatre in November 2018.</p>
+
+            <h3>Senior Software Engineer</h3>
+            <h4>Massive Interactive, Sydney</h4>
+            <p class="date">April 2017 - May 2019</p>
+
+            <p>I came to Massive to fill a hole in the hierarchy in the Services Team as they had a Engineering Manager and a Junior Developer but nothing in between. Primarily my role was to maintain and improve an existing streaming service built using Haxe which was in production. Later on I was part of a team developing a new streaming service for an international client which launched successfully within the critical timing window that was mandated at the start of the project.</p>
+            <p>In addition to the work for the Services team I worked for the Product Team to provide an additional human resource. The opportunity to work with them closely was a great benefit as it allowed me to get a close familiarity with the team and bring both teams closer together.</p>
+            <ul>
+                <li>Timely development of new features, product enhancements and bug fixes on new and existing projects.</li>
+                <li>Mentoring the junior team member to a mid level role.</li>
+                <li>Working with onsite Product team to implement new features and improve existing ones based on clients’ feedback.</li>
+                <li>Direct communication with clients to determine requirements and provide technical understanding.</li>
+                <li>Reforming and leading daily stand ups for a team to help improve communication and knowledge sharing.</li>
+            </ul>
+
+            <p>Required Skills: JavaScript & TypeScript (React, Node), HTML, CSS / SCSS, Haxe, Agile Practices, Git</p>
+
+            <h3>Senior Web Developer, Sydney</h3>
+            <h4>Mentally Friendly</h4>
+            <p class="date">2011 - 2017</p>
+
+            <p>Responsible for the planning, development, maintenance and deployment of both frontend and backend systems of bespoke websites ranging from marketing to ecommerce sites.</p>
+            <p>Mentally Friendly’s projects were put together by a small team made up of a strategist, designer, product manager and developer who would work closely with the client. As the developer in these teams my role would be to create a MVP as quickly as possible which would then be improved upon as users and stakeholders responded to it. I greatly enjoyed the collaborative approach and being able to iterate based on how it was perceived by users. Outside of this main responsibility I also helped to provide guidance to other developers in how to structure their work and how to break down complex functionality into more manageable pieces.</p>
+
+            <p>Required Skills: PHP (CodeIgniter, Laravel), JavaScript (jQuery, React), HTML, CSS / SCSS, MySQL, AWS, Python (Django), Agile Practices, Git</p>
+
+            <h3>Web Developer</h3>
+            <h4>Visiontech Digital, Sydney</h4>
+            <p class="date">2008 - 2011</p>
+
+            <h3>Junior Web Developer</h3>
+            <h4>Imagine Marketing, Sydney</h4>
+            <p class="date">2007 - 2008</p>
+
+            <h2>EDUCATION</h2>
+            </h3>Diploma of Digital Media</h3>
+            <h4>Sydney Institute, Randwick</h4>
+            <p class="date">2004 - 2006</p>
+        </section>
+    </body>
+</html>
