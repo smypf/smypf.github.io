@@ -1,0 +1,405 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>smypf.com</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        html {
+            color: #444444;
+            background: #fffff8;
+            margin: 10px 20px;
+            font-size: 14px;
+        }
+
+        header {
+            display: flex;
+        }
+
+        header h1 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        header h1 a {
+             text-decoration: none;
+             color: #444;
+        }
+
+        header .time {
+             position: relative;
+             top: -5px;
+        }
+
+        header hr {
+            flex-grow: 1;
+            height: 0px;
+            position: relative;
+            top: 9px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        section h1 {
+            margin-top: 40px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        section {
+            line-height: 1.5;
+            width: 60vw;
+            margin: 0 auto;
+            min-width: 320px;
+            max-width: 666px;
+        }
+
+        table {
+            border-spacing: 0;
+            position: relative;
+            left: -30%;
+            width: 160%;
+            font-size: 13px;
+        }
+
+        table thead tr td {
+            border-bottom: 2px solid #444;
+        }
+
+        table td {
+            text-align: center;
+            background: #f2f2e7;
+        }
+
+        table td:nth-child(2),
+        table td:nth-child(5),
+        table td:nth-child(8) {
+           border-right: 1px dashed #444;
+           width: 13%;
+        }
+
+        table td:nth-child(3),
+        table td:nth-child(6),
+        table td:nth-child(9) {
+           width: 13%;
+        }
+
+        table td:nth-child(3n + 1) {
+            border-left: 1px solid #444;
+            border-right: 1px solid #444;
+            background: none;
+        }
+
+        table td:nth-child(1) {
+            border-left: 0;
+        }
+
+        table tr td {
+            padding: 20px 10px;
+            border-bottom: 1px solid #444;
+        }
+
+        table tbody:hover td {
+            opacity: 0.5;
+        }
+
+        table tbody tr:hover td {
+            background: #e3c5ee;
+            opacity: 1;
+        }
+
+        table tbody tr:hover td:nth-child(3n + 1) {
+            background: #faedff;
+        }
+
+
+        </style>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const date = new Date();
+            let hours = date.getHours().toString();
+            let minutes = date.getMinutes().toString();
+            let seconds = date.getSeconds().toString();
+
+            if(hours.length === 1) hours = "0" + hours;
+            if(minutes.length === 1) minutes = "0" + minutes;
+            if(seconds.length === 1) seconds = "0" + seconds;
+
+
+            const time = `${hours}:${minutes}:${seconds}`
+            document.querySelector(".time").innerText = time;
+        });
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="/dumbbell-workouts.html" title="smypf.com/dumbbell-workouts.html">~/dumbbell-workouts.html</a></h1>
+            <hr />
+            <p class="time"></p>
+        </header>
+        <section>
+            <p>Coaching Mag has a <a href="https://www.coachmag.co.uk/fitness/workouts/dumbbell-workouts">dumbbell routine</a> I've been using but their website has too much going on. To make it easier for me to remember what the routine is I've copied it over here.</p>
+
+            <h1>Routine 1 - Chest and Back</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Floor Press</td>
+                        <td>Hammer Bent-Over Row</td>
+                        <td>Rest</td>
+                        <td>Dumbbell Push Up</td>
+                        <td>Reverse Flye</td>
+                        <td>Rest</td>
+                        <td>Wide Dumbbell Push Up</td>
+                        <td>Renegade Row</td>
+                    </tr>
+                <thead>
+                <tbody>
+                    <tr>
+                        <td>Week 1</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 3</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h1>Routine 2 - Arms</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Biceps Curl</td>
+                        <td>Triceps Extension</td>
+                        <td>Rest</td>
+                        <td>Hammer Curl</td>
+                        <td>Triceps Kick-Back</td>
+                        <td>Rest</td>
+                        <td>Spider Curl</td>
+                        <td>Narrow Dumbbell Push Up</td>
+                    </tr>
+                <thead>
+                <tbody>
+                    <tr>
+                        <td>Week 1</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 3</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h1>Routine 3 - Legs and Abs</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Squat</td>
+                        <td>Woodchop</td>
+                        <td>Rest</td>
+                        <td>Lunge *</td>
+                        <td>Halo</td>
+                        <td>Rest</td>
+                        <td>Goblet Squat</td>
+                        <td>Crunch</td>
+                    </tr>
+                <thead>
+                <tbody>
+                    <tr>
+                        <td>Week 1</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 3</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p> * In case of knee pain consider reverse lunges instead</p>
+
+            <h1>Routine 4 - Shoulders</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Overhead Press</td>
+                        <td>Lateral Raise</td>
+                        <td>Rest</td>
+                        <td>Arnold Raise</td>
+                        <td>Upright Row</td>
+                        <td>Rest</td>
+                        <td>Front Raise</td>
+                        <td>Shrug</td>
+                    </tr>
+                <thead>
+                <tbody>
+                    <tr>
+                        <td>Week 1</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 4 sets</td>
+                        <td>10 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>10 reps - 5 sets</td>
+                        <td>10 reps - 5 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 3</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 4 sets</td>
+                        <td>12 reps - 4 sets</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>60 sec</td>
+                        <td>12 reps - 5 sets</td>
+                        <td>12 reps - 5 sets</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><a href="/">Back to the homepage</a></p>
+        </section>
+    </body>
+</html>
