@@ -1,0 +1,161 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>smypf.com</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        html {
+            color: #444444;
+            background: #fffff8;
+            margin: 10px 20px;
+            font-size: 14px;
+        }
+
+        header {
+            display: flex;
+        }
+
+        header h1 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        header h1 a {
+             text-decoration: none;
+             color: #444;
+        }
+
+        header .time {
+             position: relative;
+             top: -5px;
+        }
+
+        header hr {
+            flex-grow: 1;
+            height: 0px;
+            position: relative;
+            top: 9px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        section h1 {
+            margin-top: 20vh;
+            margin-bottom: 20vh;
+            text-align: center;
+            color: #ccc;
+            display: none;
+        }
+
+        section h1 span.matched {
+            color: #444;
+        }
+        </style>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const date = new Date();
+            let hours = date.getHours().toString();
+            let minutes = date.getMinutes().toString();
+            let seconds = date.getSeconds().toString();
+
+            if(hours.length === 1) hours = "0" + hours;
+            if(minutes.length === 1) minutes = "0" + minutes;
+            if(seconds.length === 1) seconds = "0" + seconds;
+
+
+            const time = `${hours}:${minutes}:${seconds}`
+            document.querySelector(".time").innerText = time;
+
+            setup();
+            document.querySelector('body').onkeyup = onkeyup;
+        });
+
+        let text;
+        let unmatched;
+        let matched;
+        function set() {
+            practiceStr = window.prompt("What do you want to practice typing?")
+            if(practiceStr === null) {
+                text.style.display = "none";
+                return;
+            }
+
+            practiceStr = practiceStr.trim();
+            text.style.display = "block";
+            text.style.fontSize = `${120 / practiceStr.length}vw`;
+            unmatched.innerText = practiceStr;
+            matched.innerText = '';
+            currentStr = '';
+        }
+
+        function reset() {
+            currentStr = '';
+            matched.innerText = practiceStr.substring(0, currentStr.length);
+            unmatched.innerText = practiceStr.substring(currentStr.length);
+        }
+
+        function setup() {
+            document.querySelector("#set").onclick = set;
+            document.querySelector("#reset").onclick = reset;
+            text = document.querySelector("#text");
+            matched = document.querySelector("#text .matched");
+            unmatched = document.querySelector("#text .unmatched");
+            document.querySelector('body').focus();
+            set();
+        }
+
+        let currentStr = '';
+        function onkeyup(event) {
+            if(practiceStr === null) return;
+            if (event.key !== practiceStr.toLowerCase()[currentStr.length]) return;
+
+            currentStr += event.key;
+            matched.innerText = practiceStr.substring(0, currentStr.length);
+            unmatched.innerText = practiceStr.substring(currentStr.length);
+        }
+
+
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="/typing.html" title="smypf.com/typing.html">~/typing.html</a></h1>
+            <hr />
+            <p class="time"></p>
+        </header>
+
+        <section>
+
+            <p>
+                <button id="set">Set Practice Word</button>
+                <button id="reset">Restart Current Attempt</button>
+            </p>
+
+
+            <h1 id="text">
+                <span class="matched">
+                </span><span class="unmatched">
+            </h1>
+
+            <p>My daughter started school this year. Part of the curriculm involves learning to use computers. This requires that she knows how to type in her username. To allow her to practice I created this.</p>
+
+            <p>Todos:
+            <ul>
+                <li>Add fun effects</li>
+                <li>Add checking the casing</li>
+                <li>Read out the letter that's been typed</li>
+                <li>Fix that bug which makes the layout of the page go weird</li>
+            </ul>
+
+            <p><a href="/">Back to the homepage</a></p>
+        </section>
+    </body>
+</html>
