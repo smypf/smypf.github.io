@@ -3,7 +3,8 @@
     <head>
         <title>smypf.com</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-        <meta content="utf-8" http-equiv="encoding">
+        <met
+a content="utf-8" http-equiv="encoding">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
         html {
@@ -59,10 +60,9 @@
 
         table {
             border-spacing: 0;
-            position: relative;
-            left: -30%;
-            width: 160%;
             font-size: 13px;
+            width: 100%;
+            border-bottom: 2px solid #444;
         }
 
         table thead tr td {
@@ -71,26 +71,25 @@
 
         table td {
             text-align: center;
-            background: #f2f2e7;
         }
 
-        table td:nth-child(2),
-        table td:nth-child(5),
-        table td:nth-child(8) {
+        table td span.reps:after {
+            content: " ×";
+        }
+
+        table td:nth-child(1),
+        table td:nth-child(2) {
            border-right: 1px dashed #444;
-           width: 13%;
         }
 
-        table td:nth-child(3),
-        table td:nth-child(6),
-        table td:nth-child(9) {
-           width: 13%;
+        table td:nth-child(3) {
+            white-space: nowrap
         }
 
-        table td:nth-child(3n + 1) {
-            border-left: 1px solid #444;
-            border-right: 1px solid #444;
-            background: none;
+        table tbody tr:nth-child(3) td,
+        table tbody tr:nth-child(6) td {
+            background: #f2f2e7;
+            border-right: none;
         }
 
         table td:nth-child(1) {
@@ -98,7 +97,7 @@
         }
 
         table tr td {
-            padding: 20px 10px;
+            padding: 10px 5px;
             border-bottom: 1px solid #444;
         }
 
@@ -115,6 +114,11 @@
             background: #faedff;
         }
 
+        select {
+            position: sticky;
+            top: 10px;
+            width: 100%;
+        }
 
         </style>
 
@@ -132,6 +136,48 @@
 
             const time = `${hours}:${minutes}:${seconds}`
             document.querySelector(".time").innerText = time;
+
+            function populateData(index) {
+                document.querySelectorAll("tbody tr").forEach(function (row) {
+                    const repsCount = row.attributes['data-reps']?.value.split(":")[index];
+                    const repsEl = row.querySelector('.reps');
+                    if(repsEl)
+                        repsEl.innerText = repsCount;
+
+                    const setsCount = row.attributes['data-sets']?.value.split(":")[index];
+                    const setsEl = row.querySelector('.sets');
+                    if(setsEl)
+                        setsEl.innerText = setsCount;
+
+                    const tempo = row.attributes['data-tempo']?.value.split(":")[index]
+                    if(typeof tempo !== 'undefined') {
+                        const [ tempoUp, tempoUpPause, tempoDown, tempoDownPause ] = tempo.split(';');
+                        const tempoUpEl = row.querySelector('.tempo-up');
+                        const tempoUpPauseEl = row.querySelector('.tempo-up-pause');
+                        const tempoDownEl = row.querySelector('.tempo-down');
+                        const tempoDownPauseEl = row.querySelector('.tempo-down-pause');
+                        if(tempoUpEl)
+                            tempoUpEl.innerText = tempoUp;
+
+                        if(tempoUpPauseEl)
+                            tempoUpPauseEl.innerText = tempoUpPause;
+
+                        if(tempoDownEl)
+                            tempoDownEl.innerText = tempoDown;
+
+                        if(tempoDownPauseEl)
+                            tempoDownPauseEl.innerText = tempoDownPause;
+                    }
+                });
+            }
+
+            const weekSelector = document.querySelector("select");
+            populateData(weekSelector.value - 1)
+
+            weekSelector.onchange = function (event) {
+                const week = event.target.value;
+                populateData(week - 1)
+            }
         });
         </script>
     </head>
@@ -145,65 +191,137 @@
         <section>
             <p>Coaching Mag has a <a href="https://www.coachmag.co.uk/fitness/workouts/dumbbell-workouts">dumbbell routine</a> I've been using but their website has too much going on. To make it easier for me to remember what the routine is I've copied it over here.</p>
 
-            <h1>Routine 1 - Chest and Back</h1>
+            <select>
+                <option value="1">Week 1</option>
+                <option value="2">Week 2</option>
+                <option value="3">Week 3</option>
+                <option value="4">Week 4</option>
+            </select>
+
+            <h1>Routine 1 - Chest &amp; Back</h1>
             <table>
                 <thead>
                     <tr>
-                        <td></td>
-                        <td>Floor Press</td>
-                        <td>Hammer Bent-Over Row</td>
-                        <td>Rest</td>
-                        <td>Dumbbell Push Up</td>
-                        <td>Reverse Flye</td>
-                        <td>Rest</td>
-                        <td>Wide Dumbbell Push Up</td>
-                        <td>Renegade Row</td>
+                        <td>Exercise</td>
+                        <td>
+                            <span class="reps">Reps</span>
+                            <span class="sets">Sets</span>
+                        </td>
+                        <td>Tempo</td>
                     </tr>
-                <thead>
+                </thead>
                 <tbody>
-                    <tr>
-                        <td>Week 1</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Floor Press</td>
+                        <td>
+                            <span class="reps"></span>
+                            <span class="sets"></span>
+                        </td>
+                        <td>
+                            <span class="tempo-up"></span>
+                            <span class="tempo-up-pause"></span>
+                            <span class="tempo-down"></span>
+                            <span class="tempo-down-pause"></span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Hammer Bent-Over Row</td>
+                        <td>
+                            <span class="reps"></span>
+                            <span class="sets"></span>
+                        </td>
+                        <td>
+                            <span class="tempo-up"></span>
+                            <span class="tempo-up-pause"></span>
+                            <span class="tempo-down"></span>
+                            <span class="tempo-down-pause"></span>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Week 2</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
+                        <td colspan="4">Rest - 60 seconds</td>
                     </tr>
-                    <tr>
-                        <td>Week 3</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Dumbbell Push Up</td>
+                        <td>
+                            <span class="reps"></span>
+                            <span class="sets"></span>
+                        </td>
+                        <td>
+                            <span class="tempo-up"></span>
+                            <span class="tempo-up-pause"></span>
+                            <span class="tempo-down"></span>
+                            <span class="tempo-down-pause"></span>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>Week 2</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Reverse Flye</td>
+                        <td>
+                            <span class="reps"></span>
+                            <span class="sets"></span>
+                        </td>
+                        <td>
+                            <span class="tempo-up"></span>
+                            <span class="tempo-up-pause"></span>
+                            <span class="tempo-down"></span>
+                            <span class="tempo-down-pause"></span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td colspan="5">Rest - 60 seconds</td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Wide Dumbbell Push Up</td>
+                        <td>
+                            <span class="reps"></span>
+                            <span class="sets"></span>
+                        </td>
+                        <td>
+                            <span class="tempo-up"></span>
+                            <span class="tempo-up-pause"></span>
+                            <span class="tempo-down"></span>
+                            <span class="tempo-down-pause"></span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Renegade Row</td>
+                        <td>
+                            <span class="reps"></span>
+                            <span class="sets"></span>
+                        </td>
+                        <td>
+                            <span class="tempo-up"></span>
+                            <span class="tempo-up-pause"></span>
+                            <span class="tempo-down"></span>
+                            <span class="tempo-down-pause"></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -212,189 +330,375 @@
             <table>
                 <thead>
                     <tr>
-                        <td></td>
-                        <td>Biceps Curl</td>
-                        <td>Triceps Extension</td>
-                        <td>Rest</td>
-                        <td>Hammer Curl</td>
-                        <td>Triceps Kick-Back</td>
-                        <td>Rest</td>
-                        <td>Spider Curl</td>
-                        <td>Narrow Dumbbell Push Up</td>
+                        <td>Exercise</td>
+                        <td>
+                            <span class="reps">Reps</span>
+                            <span class="sets">Sets</span>
+                        </td>
+                        <td>Tempo</td>
                     </tr>
-                <thead>
+                </thead>
                 <tbody>
-                    <tr>
-                        <td>Week 1</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Biceps Curl</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10 each side:12 each side:10 each side:12 each side"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Triceps Extension</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Week 2</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
+                        <td colspan="4">Rest - 60 seconds</td>
                     </tr>
-                    <tr>
-                        <td>Week 3</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Hammer Curl</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>Week 2</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Triceps Kick-Back</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td colspan="5">Rest - 60 seconds</td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Spider Curl</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;0:2s;0;1s;0"
+                    >
+                        <td>Narrow Dumbbell Push Up</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
 
-            <h1>Routine 3 - Legs and Abs</h1>
+            <h1>Routine 3 - Legs &amp; Abs</h1>
             <table>
                 <thead>
                     <tr>
-                        <td></td>
-                        <td>Squat</td>
-                        <td>Woodchop</td>
-                        <td>Rest</td>
-                        <td>Lunge *</td>
-                        <td>Halo</td>
-                        <td>Rest</td>
-                        <td>Goblet Squat</td>
-                        <td>Crunch</td>
+                        <td>Exercise</td>
+                        <td>
+                            <span class="reps">Reps</span>
+                            <span class="sets">Sets</span>
+                        </td>
+                        <td>Tempo</td>
                     </tr>
-                <thead>
+                </thead>
                 <tbody>
-                    <tr>
-                        <td>Week 1</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:3s;0;1s;0:3s;0;1s;0"
+                    >
+                        <td>Squat</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10 each side:12 each side:10 each side:12 each side"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:1s;1s;1s;1s:1s;1s;1s;1s"
+                    >
+                        <td>Woodchop</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Week 2</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
+                        <td colspan="4">Rest - 60 seconds</td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:3s;0;1s;0:3s;0;1s;0"
+                    >
+                        <td>Lunge *</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10 each side:12 each side:10 each side:12 each side"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:1s;1s;1s;1s:1s;1s;1s;1s"
+                    >
+                        <td>Halo</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Week 3</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
+                        <td colspan="5">Rest - 60 seconds</td>
                     </tr>
-                    <tr>
-                        <td>Week 2</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:3s;0;1s;0:3s;0;1s;0"
+                    >
+                        <td>Goblet Squat</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:2s;0;1s;0:2s;0;1s;1s"
+                    >
+                        <td>Crunch</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-
             <p> * In case of knee pain consider reverse lunges instead</p>
 
             <h1>Routine 4 - Shoulders</h1>
             <table>
                 <thead>
                     <tr>
-                        <td></td>
-                        <td>Overhead Press</td>
-                        <td>Lateral Raise</td>
-                        <td>Rest</td>
-                        <td>Arnold Raise</td>
-                        <td>Upright Row</td>
-                        <td>Rest</td>
-                        <td>Front Raise</td>
-                        <td>Shrug</td>
+                        <td>Exercise</td>
+                        <td>
+                            <span class="reps">Reps</span>
+                            <span class="sets">Sets</span>
+                        </td>
+                        <td>Tempo</td>
                     </tr>
-                <thead>
+                </thead>
                 <tbody>
-                    <tr>
-                        <td>Week 1</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 4 sets</td>
-                        <td>10 reps - 4 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:3s;0;1s;0:3s;0;1s;0"
+                    >
+                        <td>Overhead Press</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Lateral Raise</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Week 2</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>10 reps - 5 sets</td>
-                        <td>10 reps - 5 sets</td>
+                        <td colspan="4">Rest - 60 seconds</td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;0:3s;0;1s;0:3s;0;1s;0"
+                    >
+                        <td>Arnold Raise</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Upright Row</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Week 3</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 4 sets</td>
-                        <td>12 reps - 4 sets</td>
+                        <td colspan="5">Rest - 60 seconds</td>
                     </tr>
-                    <tr>
-                        <td>Week 2</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>60 sec</td>
-                        <td>12 reps - 5 sets</td>
-                        <td>12 reps - 5 sets</td>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Front Raise</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
+                    </tr>
+                    <tr
+                        data-reps="10:12:10:12"
+                        data-sets="4:4:5:5"
+                        data-tempo="2s;0;1s;0:2s;0;1s;1s:2s;0;1s;1s:2s;0;1s;1s"
+                    >
+                        <td>Shrug</td>
+                        <td>
+                            <span class="reps">10</span>
+                            <span class="sets">4</span>
+                        </td>
+                        <td>
+                            <span class="tempo-up">2s</span>
+                            <span class="tempo-up-pause">0</span>
+                            <span class="tempo-down">1s</span>
+                            <span class="tempo-down-pause">0</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
