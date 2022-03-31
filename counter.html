@@ -1,0 +1,160 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>smypf.com</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        html {
+            color: #444444;
+            background: #fffff8;
+            margin: 10px 20px;
+            font-size: 14px;
+        }
+
+        header {
+            display: flex;
+        }
+
+        header h1 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        header h1 a {
+             text-decoration: none;
+             color: #444;
+        }
+
+        header .time {
+             position: relative;
+             top: -5px;
+        }
+
+        header hr {
+            flex-grow: 1;
+            height: 0px;
+            position: relative;
+            top: 9px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        .hidden {
+        }
+
+        #timers input {
+
+        }
+
+        #timers .show + .hide:before {
+            content: "+";
+        }
+
+        #timers span.hide input {
+            display: none;
+        }
+
+        </style>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const date = new Date();
+            let hours = date.getHours().toString();
+            let minutes = date.getMinutes().toString();
+            let seconds = date.getSeconds().toString();
+
+            if(hours.length === 1) hours = "0" + hours;
+            if(minutes.length === 1) minutes = "0" + minutes;
+            if(seconds.length === 1) seconds = "0" + seconds;
+
+
+            const time = `${hours}:${minutes}:${seconds}`
+            document.querySelector(".time").innerText = time;
+
+            document.querySelectorAll("#timers input").forEach(function (input) {
+                input.onkeyup = function () {
+                    const value = input.value;
+                    input.value = value.replace(/[^0-9]/g,'');
+                }
+            });
+
+            document.querySelector("#start").onclick = startInterval;
+            document.querySelector("#reset").onclick = clearTime;
+
+            let interval;
+            function startInterval() {
+                clearInterval();
+
+                interval = window.setInterval(updateTime, 10);
+            }
+
+            let startTime;
+            const timeCounter = document.querySelector("#time-counter")
+
+            function updateTime() {
+                if (typeof startTime === 'undefined') {
+                    startTime = performance.now();
+                }
+
+                window.requestAnimationFrame(function () {
+                    const currentTime = performance.now() - startTime;
+                    timeCounter.innerHTML = formatTime(currentTime);
+                });
+            }
+
+            function clearTime() {
+                if (typeof interval !== 'undefined') {
+                    window.clearInterval(interval)
+                    interval = undefined;
+                    startTime = undefined;
+                }
+            }
+
+            function formatTime(time) {
+                const timeStr = time.toString();
+                const bigTime = parseInt(timeStr.substring(0, timeStr.length - 3));
+                const milliseconds = timeStr.substring(timeStr.length-3);
+                let seconds = bigTime % 60;
+                let minutes = Math.floor(bigTime / 60);
+
+                if (isNaN(seconds)) seconds = 0;
+                if (isNaN(minutes)) minutes = 0;
+
+                if (seconds < 10) seconds = `0${seconds}`;
+                if (minutes < 10) minutes = `0${minutes}`;
+
+                return `${minutes}:${seconds}.${milliseconds}`;
+            }
+        });
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="/" title="smypf.com">~</a></h1>
+            <hr />
+            <p class="time"></p>
+        </header>
+
+        <section id="timers">
+            <input type="text" id="timer-1">
+        </section>
+
+        <section id="counters">
+            <h1 id="time-counter">0:00:00.000</h1>
+            <h2 id="increment-counter">0</h2>
+        </section>
+
+        <section id="controls">
+            <button id="start">Start</button>
+            <button id="split">Split</button>
+            <button id="reset">Reset</button>
+        </section>
+    </body>
+</html>
