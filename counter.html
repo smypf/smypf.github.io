@@ -113,19 +113,33 @@
                     window.clearInterval(interval)
                     interval = undefined;
                     startTime = undefined;
+                    timeCounter.innerHTML = formatTime(0);
                 }
             }
 
             function formatTime(time) {
+                // There's some edgecase when clearTime is called but the interval still fires which is causing time = NaN
+                // This is done to prevent this issue from occurring.
+                if (isNaN(time)) time = 0;
+
                 const timeStr = time.toString();
                 const bigTime = parseInt(timeStr.substring(0, timeStr.length - 3));
-                const milliseconds = timeStr.substring(timeStr.length-3);
+                let milliseconds = timeStr.substring(timeStr.length-3);
                 let seconds = bigTime % 60;
                 let minutes = Math.floor(bigTime / 60);
 
+                if (isNaN(milliseconds)) milliseconds = 0;
                 if (isNaN(seconds)) seconds = 0;
                 if (isNaN(minutes)) minutes = 0;
 
+                if (milliseconds.length < 3) {
+                    const millisecondsArr = milliseconds.toString().split('');
+                    while (millisecondsArr.length < 3) {
+                        millisecondsArr.push(0);
+                    }
+
+                    milliseconds = millisecondsArr.join('');
+                }
                 if (seconds < 10) seconds = `0${seconds}`;
                 if (minutes < 10) minutes = `0${minutes}`;
 
