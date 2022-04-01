@@ -41,25 +41,62 @@
             margin-right: 10px;
         }
 
-        ul li {
-            margin-bottom: 5px;
+        section {
+            display: flex;
+            font-size: 16px;
+            margin-bottom: 2em;
         }
 
-        .hidden {
+        #counters div {
+            flex-basis: 50%;
+            flex-grow: 1;
+            text-align: center;
         }
 
-        #timers input {
-
+        #counters ruby rt {
+            font-size: 10px;
+            position: relative;
+            top: -40px;
         }
 
-        #timers .show + .hide:before {
-            content: "+";
+        #counters h1,
+        #counters h2 {
+            font-size: 5vw;
         }
 
-        #timers span.hide input {
-            display: none;
+        abbr {
+            margin-right: 0.5em;
         }
 
+        button {
+            font-size: 2em;
+            padding: 0.5em 1em;
+        }
+
+        #controls > div {
+            flex-basis: 50%;
+            flex-grow: 1;
+        }
+
+        #controls > div {
+            margin: 0 0.5em;
+        }
+
+        #controls > div:first-of-type {
+            margin-left: 0;
+        }
+
+        #controls > div:last-of-type {
+            margin-right: 0;
+        }
+
+        #controls div > * {
+            width: 100%;
+        }
+
+        #controls div label {
+            cursor: pointer;
+        }
         </style>
 
         <script>
@@ -73,29 +110,52 @@
             if(minutes.length === 1) minutes = "0" + minutes;
             if(seconds.length === 1) seconds = "0" + seconds;
 
+            const timeEl = document.querySelector("#time-counter");
+            const counterEl = document.querySelector("#interval-counter");
+            const loopTimeInputEl = document.querySelector("#loop-time")
 
             const time = `${hours}:${minutes}:${seconds}`
             document.querySelector(".time").innerText = time;
 
-            document.querySelectorAll("#timers input").forEach(function (input) {
-                input.onkeyup = function () {
-                    const value = input.value;
-                    input.value = value.replace(/[^0-9]/g,'');
-                }
-            });
-
             document.querySelector("#start").onclick = startInterval;
             document.querySelector("#reset").onclick = clearTime;
 
+            let loopTimeElValue;
+
+            if (loopTimeInputEl.value !== '') {
+                const parsedValue = parseInt(loopTimeInputEl.value);
+
+                if(isNaN(parsedValue) === false) {
+                    loopTimeElValue = parsedValue;
+                }
+            }
+
+            let startTime;
             let interval;
+            let counter = 0;
+            let loopTime = loopTimeElValue || Infinity;
+
+            loopTimeInputEl.onkeyup = function (event) {
+                const input = event.target;
+                const value = input.value.replace(/[^0-9]/g,'');
+                input.value = value;
+
+                const parsedValue = parseInt(value, 10);
+
+                if (isNaN(parsedValue) === false)
+                    loopTime = value;
+                else
+                    loopTime = Infinity;
+            };
+
             function startInterval() {
-                clearInterval();
+                if (typeof interval !== 'undefined') return;
+
+                loopTimeInputEl.setAttribute('disabled', 'true');
 
                 interval = window.setInterval(updateTime, 10);
             }
 
-            let startTime;
-            const timeCounter = document.querySelector("#time-counter")
 
             function updateTime() {
                 if (typeof startTime === 'undefined') {
@@ -103,8 +163,16 @@
                 }
 
                 window.requestAnimationFrame(function () {
-                    const currentTime = performance.now() - startTime;
-                    timeCounter.innerHTML = formatTime(currentTime);
+                    const now = performance.now();
+                    const currentTime = now - startTime;
+
+                    if (loopTime < Infinity && currentTime / 1000 > loopTime) {
+                        startTime = now;
+                        counter += 1;
+                    }
+
+                    timeEl.innerHTML = formatTime(currentTime);
+                    counterEl.innerHTML = counter;
                 });
             }
 
@@ -113,7 +181,10 @@
                     window.clearInterval(interval)
                     interval = undefined;
                     startTime = undefined;
-                    timeCounter.innerHTML = formatTime(0);
+                    counter = 0;
+                    timeEl.innerHTML = formatTime(0);
+                    counterEl.innerHTML = counter;
+                    loopTimeInputEl.removeAttribute('disabled');
                 }
             }
 
@@ -151,24 +222,44 @@
 
     <body>
         <header>
-            <h1><a href="/" title="smypf.com">~</a></h1>
+            <h1><a href="/" title="smypf.com">~/counter.html</a></h1>
             <hr />
             <p class="time"></p>
         </header>
 
         <section id="timers">
-            <input type="text" id="timer-1">
         </section>
 
         <section id="counters">
-            <h1 id="time-counter">0:00:00.000</h1>
-            <h2 id="increment-counter">0</h2>
+            <div>
+                <ruby>
+                    <h1 id="time-counter">00:00.000</h1>
+                    <rt>Time:</rt>
+                </ruby>
+            </div>
+            <div>
+                <ruby>
+                    <h2 id="interval-counter">0</h2>
+                    <rt>Intervals:</rt>
+                </ruby>
         </section>
 
         <section id="controls">
-            <button id="start">Start</button>
-            <button id="split">Split</button>
-            <button id="reset">Reset</button>
+            <div>
+                <button id="start">Start</button>
+            </div>
+            <div>
+                <button id="reset">Reset</button>
+            </div>
         </section>
+
+        <section>
+            <label>
+                <abbr title="Reset time and increment counter">Interval Loop Time:</abbr>
+                <input type="text" id="loop-time">
+            </label>
+        </section>
+
+        <p><a href="/">Back to the homepage</a></p>
     </body>
 </html>
