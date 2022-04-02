@@ -56,6 +56,14 @@
         section h1 span.matched {
             color: #444;
         }
+
+        #description {
+            line-height: 1.5;
+            width: 60vw;
+            margin: 0 auto;
+            min-width: 320px;
+            max-width: 666px;
+        }
         </style>
 
         <script>
@@ -82,8 +90,9 @@
         let unmatched;
         let matched;
         let done = false;
+        let practiceStr = '';
         function set() {
-            practiceStr = window.prompt("What do you want to practice typing?")
+            practiceStr = window.prompt("What is the practice text?", practiceStr || "")
             if(practiceStr === null) {
                 text.style.display = "none";
                 return;
@@ -91,7 +100,8 @@
 
             practiceStr = practiceStr.trim();
             text.style.display = "block";
-            text.style.fontSize = `${120 / practiceStr.length}vw`;
+            const fontSize = Math.min(120 / practiceStr.length, 20);
+            text.style.fontSize = `${fontSize}vw`;
             unmatched.innerText = practiceStr;
             matched.innerText = '';
             currentStr = '';
@@ -155,7 +165,7 @@
         <section>
 
             <p>
-                <button id="set">Set Practice Word</button>
+                <button id="set">Set Practice Text</button>
                 <button id="reset">Restart Current Attempt</button>
             </p>
 
@@ -164,15 +174,33 @@
                 <span class="matched">
                 </span><span class="unmatched">
             </h1>
+        </section>
 
+        <section id="description">
+            <h2>How To:</h2>
+            <p>When navigating to this page a prompt will be shown where practice text can be input. Adding text to the input field and pressing the "Enter" key on the keyboard or clicking on the "OK" button will then show the text on page. Pressing the "Cancel" button or pressing the "Escape" key while the dialog is present will close the dialog without setting the practice text.</p>
+
+            <p>The "Set Practice Text" button near the top of the page can be used to change the practice text. This process is the same as when first entering the web page.</p>
+
+            <p>When the practice text has been set pressing the same key on the keyboard as the highlighted character will change the text colour to indicate that the right key has been pressed. Each subsequent correct key press will change the colour of the next character until all of the text has been typed out.</p>
+
+            <p>Pressing the wrong key will not do anything. The user will only be able to proceed by pressing the correct key.</p>
+
+            <p>To restart the attempt at any time press the "Reset Current Attempt" button above the practice text. This will keep the practice text and clear what has been entered so far. If all of the practice text has been completed it is possible to restart by pressing the "Enter" or "Space" key.</p>
+
+            <p>The practice text does not have any limitations to the characters that can be entered. This may cause some issues such as not being able to complete the practice string if characters are used which are not present on the keyboard.</p>
+
+            <h2>But Why?</h2>
+            <p>Why Not?</p>
             <p>My daughter started school this year. Part of the curriculm involves learning to use computers. This requires that she knows how to type in her username. To allow her to practice I created this.</p>
 
-            <p>Todos:
+            <h2>Todos:</h2>
             <ul>
                 <li>Add fun effects</li>
                 <li>Add checking the casing</li>
-                <li>Read out the letter that's been typed</li>
+                <li>Sound out the letter that's been typed</li>
                 <li>Fix that bug which makes the layout of the page go weird</li>
+                <li>Make sure that the body is targeted after entering the practice text to prevent the "Set Practice Text" button from being triggered.</li>
             </ul>
 
             <p><a href="/">Back to the homepage</a></p>
