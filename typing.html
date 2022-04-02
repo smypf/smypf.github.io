@@ -75,11 +75,13 @@
 
             setup();
             document.querySelector('body').onkeyup = onkeyup;
+            document.querySelector('body').onkeydown = onkeydown;
         });
 
         let text;
         let unmatched;
         let matched;
+        let done = false;
         function set() {
             practiceStr = window.prompt("What do you want to practice typing?")
             if(practiceStr === null) {
@@ -99,6 +101,7 @@
             currentStr = '';
             matched.innerText = practiceStr.substring(0, currentStr.length);
             unmatched.innerText = practiceStr.substring(currentStr.length);
+            done = false;
         }
 
         function setup() {
@@ -112,13 +115,30 @@
         }
 
         let currentStr = '';
+        function onkeydown(event) {
+             if (practiceStr === null) return;
+             if (practiceStr.includes(' ') && event.key === " ") event.preventDefault();
+        }
+
         function onkeyup(event) {
             if(practiceStr === null) return;
+
+            if (done && [" ", "Enter"].includes(event.key)) {
+                event.preventDefault();
+                reset();
+                return
+            }
+
+
             if (event.key !== practiceStr.toLowerCase()[currentStr.length]) return;
 
             currentStr += event.key;
             matched.innerText = practiceStr.substring(0, currentStr.length);
             unmatched.innerText = practiceStr.substring(currentStr.length);
+
+            if (currentStr.toLowerCase() === practiceStr.toLowerCase()) {
+                done = true;
+            }
         }
 
 
